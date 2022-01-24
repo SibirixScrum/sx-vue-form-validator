@@ -1,0 +1,87 @@
+# IDE and repos
+.idea
+.vscode
+.svn
+
+# Archives
+*.7z
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.tar.gz.*
+*.tgz
+*.zip
+
+# Logs, backups, and trash
+*.log
+*.bak
+Thumbs.db
+desktop.ini
+.DS_Store
+.DS_Store?
+*.DS_Store
+
+# Video & audio
+*.wmv
+*.mpg
+*.mpeg
+*.mp4
+*.mov
+*.flv
+*.avi
+*.ogv
+*.ogg
+*.webm
+*.wav
+*.mp3
+*.wma
+*.m4v
+
+# Content
+*.psd
+*.pdf
+
+# Project files
+node_modules
+sitemap*.xml
+robots.txt
+tmp
+html_pages
+bx_1c_import_lite.php
+www/bitrix
+www/upload
+www/mysql_debug.sql
+www/test.php
+www/restore.php
+www/local/define.const.php
+www/local/logs/*
+!www/local/logs/.gitkeep
+*/js/bundle/*.LICENSE.txt
+yandex_*.html
+
+# Static bundles
+/www/local/js/bundle/
+/www/local/css/icons.less
+/www/local/css/style.css
+/www/local/css/svg-symbols.less
+/www/local/images/sprite.png
+/www/local/images/sprite.svg
+/www/local/images/svg-symbols.svg
+
+/design/js/bundle/
+/design/css/icons.less
+/design/css/style.css
+/design/css/svg-symbols.less
+/design/images/sprite.png
+/design/images/sprite.svg
+/design/images/svg-symbols.svg
+
+/public/js/bundle/
+/public/css/style.css
+/public/images/sprite.png
+/public/images/sprite.svg
+/public/images/svg-symbols.svg
+/resources/css/icons.less
+/resources/css/svg-symbols.less

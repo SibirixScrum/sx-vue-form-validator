@@ -1,0 +1,26 @@
+stages:
+  - deploy
+  - build
+
+deploy:
+  stage: deploy
+  script: sudo -u nobody /home/gitlab-runner/scripts-v2/deploy.sh $CI_PROJECT_NAMESPACE $CI_PROJECT_NAME $CI_COMMIT_REF_NAME $GITLAB_USER_EMAIL
+
+build:
+  stage: build
+  script: sudo -u nobody /home/gitlab-runner/scripts-v2/build.sh $CI_PROJECT_NAMESPACE $CI_PROJECT_NAME $CI_COMMIT_REF_NAME $GITLAB_USER_EMAIL
+
+make-subdomain:
+  stage: deploy
+  except:
+    - master
+  when: manual
+  script: sudo -u nobody /home/gitlab-runner/scripts-v2/make-subdomain.sh $CI_PROJECT_NAMESPACE $CI_PROJECT_NAME $CI_COMMIT_REF_NAME $GITLAB_USER_EMAIL
+
+autoremove-subdomains:
+  stage: deploy
+  only:
+    refs:
+      - master
+  when: manual
+  script: sudo -u nobody /home/gitlab-runner/scripts-v2/autoremove-branches.sh $CI_PROJECT_NAMESPACE $CI_PROJECT_NAME $CI_COMMIT_REF_NAME $GITLAB_USER_EMAIL
