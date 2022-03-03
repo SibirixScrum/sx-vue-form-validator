@@ -1,0 +1,29 @@
+{
+    "name": "sx-vue-form-validator",
+    "version": "0.2.0",
+    "description": "Sibirix vue form validator",
+    "author": {
+        "name": "Evgenij Konovalov",
+        "email": "evgenij.konovalov@sibirix.ru"
+    },
+    "scripts": {
+        "build": "tsc -p ./tsconfig.json && rollup -c"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "vue": "^2.6.14",
+        "vue-class-component": "^7.2.6",
+        "vue-property-decorator": "^9.1.2"
+    },
+    "typings": "./lib/index.d.ts",
+    "module": "./lib/index.js",
+    "main": "./lib/index.umd.js",
+    "files": [
+        "lib",
+        "src",
+        "types/*.d.ts"
+    ],
+    "devDependencies": {
+        "typescript": "^4.6.2"
+    }
+}
