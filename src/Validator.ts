@@ -3,7 +3,7 @@ import {
     TValidatorFieldState,
     TValidatorFieldStateSet,
     TValidatorFieldset,
-    TValidatorRuleSet,
+    TValidatorRuleSet, TValidatorRuleMessage,
 } from './types';
 import {Vue} from 'vue-property-decorator';
 import {ValidatorFieldState} from './ValidatorFieldState';
@@ -40,6 +40,7 @@ export class Validator implements TValidator {
 
         const fieldsList: Array<string> = ctor.options.fieldsList || [];
         const validatorList: { [fieldName: string]: TValidatorRuleSet } = ctor.options.validators || {};
+        const validatorMessageList: { [fieldName: string]: TValidatorRuleMessage } = ctor.options.message || {};
 
         if (!fieldsList || !fieldsList.length) return;
 
@@ -51,11 +52,12 @@ export class Validator implements TValidator {
             if (!validatorList.hasOwnProperty(fieldName)) continue;
 
             const validatorFunctions = validatorList[fieldName];
+            const validatorMessages = validatorMessageList[fieldName] || {};
 
             for (let ruleName in validatorFunctions) {
                 if (!validatorFunctions.hasOwnProperty(ruleName)) continue;
 
-                let ruleState = new ValidatorRuleState(validatorFunctions[ruleName]);
+                let ruleState = new ValidatorRuleState(validatorFunctions[ruleName], validatorMessages[ruleName]);
 
                 this.fieldState[fieldName].rules[ruleName] = Vue.observable(ruleState);
             }
@@ -97,7 +99,7 @@ export class Validator implements TValidator {
     }
 
     getField(fieldName: string): TValidatorFieldState | undefined {
-        return this.fieldState[fieldName];
+        return this.fieldState[fieldName] || {};
     }
 
     getFieldValid(fieldName: string): boolean {

@@ -1,12 +1,13 @@
 import {Vue} from 'vue-property-decorator';
 
-export type TValidatorDecoratorOptions = TValidatorRuleSet;
+export type TValidatorDecoratorOptions = TValidatorRuleSet | {rules:TValidatorRuleSet, message: TValidatorRuleMessage};
 
 export type TValidatorFieldset = Vue; // this для валидаторов
 
 export type TValidatorRuleResult = string | true;
 export type TValidatorRule = (this: TValidatorFieldset, value: any) => TValidatorRuleResult;
 export type TValidatorRuleSet = { [ruleName: string]: TValidatorRule };
+export type TValidatorRuleMessage = { [ruleName: string]: string };
 
 export interface TValidatorRuleState {
     active: boolean;

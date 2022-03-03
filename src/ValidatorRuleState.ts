@@ -5,9 +5,11 @@ export class ValidatorRuleState implements TValidatorRuleState {
     valid: boolean = true;
     error: string = '';
     _callback: TValidatorRule;
+    message:string | null = null;
 
-    constructor(callback: TValidatorRule) {
+    constructor(callback: TValidatorRule, message?:string) {
         this._callback = callback;
+        this.message = message || null;
     }
 
     validate(component: TValidatorFieldset, value: any): boolean {
@@ -17,7 +19,7 @@ export class ValidatorRuleState implements TValidatorRuleState {
             this.clearErrors();
         } else {
             this.valid = false;
-            this.error = validationResult;
+            this.error = this.message || validationResult;
         }
 
         return this.valid;

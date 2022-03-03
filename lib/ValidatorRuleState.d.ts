@@ -4,7 +4,8 @@ export declare class ValidatorRuleState implements TValidatorRuleState {
     valid: boolean;
     error: string;
     _callback: TValidatorRule;
-    constructor(callback: TValidatorRule);
+    message: string | null;
+    constructor(callback: TValidatorRule, message?: string);
     validate(component: TValidatorFieldset, value: any): boolean;
     clearErrors(): void;
 }
