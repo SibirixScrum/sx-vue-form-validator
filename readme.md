@@ -8,7 +8,7 @@ MIT
 ## Установка
 
 ```bash
-npm i sx-vue-form-validator --save
+npm i sx-vue-form-validator
 ```
 
 ## Подключение
@@ -120,7 +120,7 @@ fieldName | Имя валидируемого параметра
 Показать указанную ошибку на поле. Рекомендуется использовать для отображения ошибок, полученных от сервера
 
 ##### validation.isValid(): boolean
-Запуск все валидаций. Возвращает ```false```, если хотя бы одно правило не прошло валидацию. Рекомендуется использовать для финальной валидации формы перед отправкой на сервер
+Запуск всех валидаций. Возвращает ```false```, если хотя бы одно правило не прошло валидацию. Рекомендуется использовать для финальной валидации формы перед отправкой на сервер
 
 ##### validation.fieldMessages(name: string): string[]
 Возвращает массив всех ошибок неуспешных валидаторов
@@ -215,6 +215,12 @@ const validatorFunctions = {
     export default class Form extends Mixins(Vue, FormValidate) {
 
         minLength = 5
+        
+        mounted() {
+            this.$on('validator.valid', () => {
+                console.log('Форма валидная');
+            })
+        }
 
         @Validate({required, myValidator})
         name: string = '';
