@@ -79,7 +79,7 @@ function myValidator(this: Vue, val: string): true | string {
 phone: string = '';
 ```
 
-## Объет валидатора validation
+## Объект валидатора validation
 Объект ```validation``` доступен в компоненте.
 
 ##### validation.getField(name): TValidatorFieldState | undefined
