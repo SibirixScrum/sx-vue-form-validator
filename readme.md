@@ -222,6 +222,10 @@ const validatorFunctions = {
             })
         }
 
+        destroyed() {
+            this.$off('validator.valid');
+        }
+
         @Validate({required, myValidator})
         name: string = '';
 
