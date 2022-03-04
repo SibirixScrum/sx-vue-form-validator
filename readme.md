@@ -1,4 +1,4 @@
-# Sibirix Vue From Validator
+# Sibirix Vue Form Validator
 Библиотека валидации data параметров Vue компонента
 
 ## Лицензия
