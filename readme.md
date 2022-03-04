@@ -56,8 +56,8 @@ name: string = '';
 
 ### Кастомный валидатор
 В аргумет декоратора возможно передать кастомную функцию валидатора. 
-Эта функция должна вернуть ```true``` в случае успешной валидации или _текст ошибки_ в случае ошибки.
-Контент этой функции - компонент Vue, в котором она вызывается.
+Эта функция должна вернуть ```true``` в случае успешной валидации или ```текст ошибки``` в случае ошибки.
+Контекст этой функции - компонент Vue, в котором она вызывается.
 
 ```ts
 function myValidator(this: Vue, val: string): true | string {
@@ -122,7 +122,7 @@ fieldName | Имя валидируемого параметра
 ##### validation.isValid(): boolean
 Запуск все валидаций. Возвращает ```false```, если хотя бы одно правило не прошло валидацию. Рекомендуется использовать для финальной валидации формы перед отправкой на сервер
 
-##### validation.fieldMessages(name: string): Array<string>
+##### validation.fieldMessages(name: string): string[]
 Возвращает массив всех ошибок неуспешных валидаторов
 
 ##### validation.firstFieldError(name: string): string | undefined
@@ -177,3 +177,51 @@ const validatorFunctions = {
 
 ##### validator.firstInvalid
 Вызывается в момент неуспешной валидации. В аргументе передается название первого невалидного поля
+
+## Пример
+```vue
+<template>
+    <div>
+        <form>
+            <div>
+                <label for="name">Имя сотрудника</label>
+                <input id="name" type="text" v-model="name">
+                <div class="error" v-if="!validation.getField('name').valid">
+                    {{ validation.firstFieldError('name') }}
+                </div>
+            </div>
+
+            <div>
+                <label for="phone">Телефон сотрудника</label>
+                <input id="phone" type="tel" v-model="phone">
+                <div class="error" v-if="!validation.getField('phone').valid">
+                    {{ validation.firstFieldError('phone') }}
+                </div>
+            </div>
+        </form>
+    </div>
+</template>
+
+
+<script lang="ts">
+    import { Component, Vue, Mixins } from 'vue-property-decorator';
+    import FormValidate, { Validate, required, phone } from 'sx-vue-form-validator';
+
+    function myValidator(this: Vue, val: string): true | string {
+        return val.length > this.minLength ? true : `Минимальная длина строки - ${this.minLength}`;
+    }
+
+    @Component
+    export default class Form extends Mixins(Vue, FormValidate) {
+
+        minLength = 5
+
+        @Validate({required, myValidator})
+        name: string = '';
+
+        @Validate({rules: {phone}, message: {phone: 'Введите контактный телефон сотрудника'}})
+        phone: string = '';
+    }
+</script>
+
+```
