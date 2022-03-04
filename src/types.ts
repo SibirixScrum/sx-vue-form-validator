@@ -13,6 +13,7 @@ export interface TValidatorRuleState {
     active: boolean;
     valid: boolean;
     error: string;
+    message: string | null;
     _callback: TValidatorRule;
     validate(context: TValidatorFieldset, value: any): boolean;
     clearErrors: () => void;

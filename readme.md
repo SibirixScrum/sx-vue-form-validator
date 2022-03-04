@@ -82,12 +82,8 @@ phone: string = '';
 ## Объет валидатора validation
 Объект ```validation``` доступен в компоненте.
 
-##### validation.validateField(name)
-Запустить валидацию конкретного поля
-
-
-##### validation.getField(name)
-Текущее состояние валидатора параметра.  Возвращает объект:
+##### validation.getField(name): TValidatorFieldState | undefined
+Текущее состояние валидатора параметра. Возвращает объект:
 ```json
 {
     "_active": true,
@@ -103,4 +99,81 @@ phone: string = '';
     "fieldName": "name"
 }
 ```
+Поле | Описание |
+---- | ---- |
+_active | Активность вадилации параметра
+valid | Текущее состояние валидности
+rules | Набор правил валидации
+rules.ruleName.active | Активность правила валидации
+rules.ruleName.valid | Текущее состояние валидности правила
+rules.ruleName.error | Текст текущей ошибки (в случае не валидности)
+rules.ruleName.message | Текст кастомной ошибки (в случае, если она указана)
+fieldName | Имя валидируемого параметра
 
+##### validation.validateField(name): TValidatorFieldState | undefined
+Запустить валидацию конкретного поля
+
+##### validation.getFieldValid(name: string): boolean
+Валидность конретного поля
+
+##### validation.customError(name: string, error: string): void
+Показать указанную ошибку на поле. Рекомендуется использовать для отображения ошибок, полученных от сервера
+
+##### validation.isValid(): boolean
+Запуск все валидаций. Возвращает ```false```, если хотя бы одно правило не прошло валидацию. Рекомендуется использовать для финальной валидации формы перед отправкой на сервер
+
+##### validation.fieldMessages(name: string): Array<string>
+Возвращает массив всех ошибок неуспешных валидаторов
+
+##### validation.firstFieldError(name: string): string | undefined
+Возвращает текст первой ошибки (в случа нескольких валидаторов)
+
+##### validation.setValidator(name: string, validatorFunctions: TValidatorRuleSet): void
+Программно установить валидатор на поле.
+```ts
+const validatorFunctions = {
+    ruleName: validationCollback
+}
+```
+##### validation.forgetValidator(name: string, ruleName: string): void
+Программно удалить валидатор на поле.
+
+##### validation.clearErrors(): void
+Очистить все ошибки со всех полей
+
+##### validation.clearFieldErrors(name: string): void
+Очистить все ошибки с одного поля
+
+##### validation.activate(): void
+Активировать валидатор
+
+##### validation.deactivate(): void
+Деактивировать валидатор
+
+## События
+##### validator.field.valid
+Вызывается в момент успешной валидации поля. Аргумент:
+```json
+{   
+    field: string, 
+    state: TValidatorFieldState 
+}
+```
+
+##### validator.field.invalid
+Вызывается в момент неуспешной валидации поля. Аргумент:
+```json
+{   
+    field: string, 
+    state: TValidatorFieldState 
+}
+```
+
+##### validator.valid
+Вызывается в момент неуспешной валидации всех валидаторов. В аргументе передается объект ```validation```
+
+##### validator.invalid
+Вызывается если хотя бы один валидатор не прошел валидацию. В аргументе передается объект ```validation```
+
+##### validator.firstInvalid
+Вызывается в момент неуспешной валидации. В аргументе передается название первого невалидного поля
