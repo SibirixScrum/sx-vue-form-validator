@@ -126,7 +126,7 @@ fieldName | Имя валидируемого параметра
 Возвращает массив всех ошибок неуспешных валидаторов
 
 ##### validation.firstFieldError(name: string): string | undefined
-Возвращает текст первой ошибки (в случа нескольких валидаторов)
+Возвращает текст первой ошибки (в случае нескольких валидаторов)
 
 ##### validation.setValidator(name: string, validatorFunctions: TValidatorRuleSet): void
 Программно установить валидатор на поле.
