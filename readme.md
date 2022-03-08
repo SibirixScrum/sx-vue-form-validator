@@ -1,4 +1,7 @@
 # Sibirix Vue Form Validator
+
+[RU](readme.md) | [EN](readme.en.md)
+
 Библиотека валидации data параметров Vue компонента
 
 ## Лицензия
