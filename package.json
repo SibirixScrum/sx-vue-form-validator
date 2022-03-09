@@ -6,6 +6,10 @@
         "name": "Evgenij Konovalov",
         "email": "evgenij.konovalov@sibirix.ru"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SibirixScrum/sx-vue-form-validator"
+    },
     "scripts": {
         "build": "tsc -p ./tsconfig.json && rollup -c"
     },
